@@ -940,4 +940,11 @@ backup:
 	F=`basename $(TOPDIR)` ; cd .. ; \
 	gtar --force-local -zcvf `LC_ALL=C date "+$$F-%Y-%m-%d-%T.tar.gz"` $$F
 
+# Install para despliegue en $(TOPDIR)/../Binarios/U-Boot
+install:
+	mkdir -p $(TOPDIR)/../Binarios/U-Boot > /dev/null 2>&1
+	cp SPL $(TOPDIR)/../Binarios/U-Boot
+	cp u-boot.bin $(TOPDIR)/../Binarios/U-Boot
+	echo "Binarios en $(TOPDIR)/../Binarios/U-Boot"
+	
 #########################################################################
