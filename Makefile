@@ -945,6 +945,7 @@ install:
 	mkdir -p $(TOPDIR)/../Binarios/U-Boot > /dev/null 2>&1
 	cp SPL $(TOPDIR)/../Binarios/U-Boot
 	cp u-boot.bin $(TOPDIR)/../Binarios/U-Boot
+	cp u-boot.img $(TOPDIR)/../Binarios/U-Boot
 	echo "Binarios en $(TOPDIR)/../Binarios/U-Boot"
 	
 #########################################################################
