@@ -326,6 +326,12 @@
 #define CONFIG_SYS_LONGHELP
 #define CONFIG_SYS_HUSH_PARSER
 
+/* CCV - Enable Watchdog support - 60 secs */
+#define CONFIG_SPL_WATCHDOG_SUPPORT
+#define CONFIG_HW_WATCHDOG
+#define CONFIG_IMX_WATCHDOG
+#define CONFIG_WATCHDOG_TIMEOUT_MSECS	60000
+
 #ifndef __ASSEMBLY__
 extern char *config_sys_prompt;
 #endif
