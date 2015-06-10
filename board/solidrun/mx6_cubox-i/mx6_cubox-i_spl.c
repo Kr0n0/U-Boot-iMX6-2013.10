@@ -97,11 +97,11 @@ static const char *build_dts_name(void)
 		break;
 	case MXC_CPU_MX6SOLO:
 	case MXC_CPU_MX6DL:
-		dt_prefix = "imx6dl";	
-		break;	
+		dt_prefix = "imx6dl";
+		break;
 	default:
-		dt_prefix = "unknown";	
-		break;	
+		dt_prefix = "unknown";
+		break;
 	}
 
 	MX6QDL_SET_PAD(PAD_KEY_ROW1__GPIO_4_9, MUX_PAD_CTRL(UART_PAD_CTRL));
@@ -129,7 +129,7 @@ static const char *build_dts_name(void)
 	} else {
 		dt_suffix = "-hummingboard.dtb";
 	}
-	
+
 	return strcat(dt_prefix, dt_suffix);
 }
 
@@ -397,7 +397,7 @@ static void spl_dram_init_mx6dq_1g(void)
 	mmdc_p0->mpdgctrl1 = (u32)0x023e0304;
 	mmdc_p1->mpdgctrl0 = (u32)0x03240330;
 	mmdc_p1->mpdgctrl1 = (u32)0x03180260;
-	
+
 	mmdc_p0->mprddlctl = (u32)0x3630323c;
 	mmdc_p1->mprddlctl = (u32)0x3436283a;
 
@@ -427,7 +427,7 @@ static void spl_dram_init_mx6dq_1g(void)
 	mmdc_p0->mdscr = (u32)0x00008000;
 	mmdc_p0->mdrwd = (u32)0x000026d2;
 	mmdc_p0->mdor = (u32)0x005B0E21;
-	
+
 	/* 1G */
 	mmdc_p0->mdasp = (u32)0x00000027;
 	mmdc_p0->mdctl = (u32)0x831a0000;
@@ -439,7 +439,7 @@ static void spl_dram_init_mx6dq_1g(void)
 	mmdc_p0->mdscr = (u32)0x04008040;
 
 	mmdc_p0->mdref = (u32)0x00005800;
-	
+
 	mmdc_p0->mpodtctrl = (u32)0x00000007;
 	mmdc_p1->mpodtctrl = (u32)0x00000007;
 
@@ -470,7 +470,7 @@ static void spl_dram_init_mx6dq_2g(void)
 	mmdc_p0->mpdgctrl1 = (u32)0x023e0304;
 	mmdc_p1->mpdgctrl0 = (u32)0x03240330;
 	mmdc_p1->mpdgctrl1 = (u32)0x03180260;
-	
+
 	mmdc_p0->mprddlctl = (u32)0x3630323c;
 	mmdc_p1->mprddlctl = (u32)0x3436283a;
 
@@ -500,11 +500,11 @@ static void spl_dram_init_mx6dq_2g(void)
 	mmdc_p0->mdscr = (u32)0x00008000;
 	mmdc_p0->mdrwd = (u32)0x000026d2;
 	mmdc_p0->mdor = (u32)0x005B0E21;
-	
-	/* 2G */ 
+
+	/* 2G */
 	mmdc_p0->mdasp = (u32)0x00000047;
 	mmdc_p0->mdctl = (u32)0x841a0000;
-	
+
 	mmdc_p0->mdscr = (u32)0x02088032;
 	mmdc_p0->mdscr = (u32)0x00008033;
 	mmdc_p0->mdscr = (u32)0x00408031;
@@ -512,7 +512,7 @@ static void spl_dram_init_mx6dq_2g(void)
 	mmdc_p0->mdscr = (u32)0x04008040;
 
 	mmdc_p0->mdref = (u32)0x00005800;
-	
+
 	mmdc_p0->mpodtctrl = (u32)0x00000007;
 	mmdc_p1->mpodtctrl = (u32)0x00000007;
 
@@ -522,7 +522,7 @@ static void spl_dram_init_mx6dq_2g(void)
 }
 
 static u32 spl_dram_init(u32 imxtype)
-{	
+{
 	u32 ddr_size;
 	switch (imxtype){
 	case MXC_CPU_MX6SOLO:
@@ -549,7 +549,7 @@ static u32 spl_dram_init(u32 imxtype)
 		spl_mx6dl_dram_setup_iomux();
 		spl_dram_init_mx6dl_1g();
 		ddr_size = 0x40000000;
-		break;	
+		break;
 	}
 	return ddr_size;
 }
@@ -557,7 +557,7 @@ static u32 spl_dram_init(u32 imxtype)
 static u32 spl_get_imx_type(void)
 {
 	u32 cpurev;
-	
+
 	cpurev = get_cpu_rev();
 	return (cpurev & 0xFF000) >> 12;
 }
@@ -568,7 +568,7 @@ static void prefetch_enable(void)
 	u32 reg;
 
 	writel(0x30000003, CONFIG_SYS_PL310_BASE + 0xf60);
-	
+
 	reg = readl(CONFIG_SYS_PL310_BASE + 0x104);
 	reg |= (1 << 30);
 	writel(reg, CONFIG_SYS_PL310_BASE + 0x104);
@@ -576,14 +576,14 @@ static void prefetch_enable(void)
 }
 
 void board_init_f(ulong dummy)
-{	
+{
 	u32 imx_type, ram_size;
 	/* Set the stack pointer. */
 	asm volatile("mov sp, %0\n" : : "r"(CONFIG_SPL_STACK));
 
-	imx_type = spl_get_imx_type();	
-	ram_size = spl_dram_init(imx_type);	
-	
+	imx_type = spl_get_imx_type();
+	ram_size = spl_dram_init(imx_type);
+
 	arch_cpu_init();
 
 	/* Clear the BSS. */
@@ -593,7 +593,7 @@ void board_init_f(ulong dummy)
 	gd = &gdata;
 	gd->ram_size = ram_size;
 
-	board_early_init_f();	
+	board_early_init_f();
 
 	timer_init();
 	preloader_console_init();
@@ -764,7 +764,11 @@ u32 spl_boot_mode(void)
 		hang();
 	}
 }
+#endif
 
+/* CCV - Use reset_cpu only if the SPL watchdog support it is not enabled
+ * (else use imx_watchdog.c reset_cpu() instead) */
+#if !defined(CONFIG_SPL_WATCHDOG_SUPPORT)
 void reset_cpu(ulong addr)
 {
 	__REG16(WDOG1_BASE_ADDR) = 4;
